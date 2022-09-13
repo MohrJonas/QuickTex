@@ -1,0 +1,13 @@
+- [ ] Tables **Partial support**
+- [ ] Math **Partial support**
+- [x] Tikz
+  - [x] Rectangle
+  - [x] Ellipse
+  - [x] Circle
+  - [x] Path
+  - [x] Text
+  - [x] Polygon
+  - [x] Lines
+  - [x] LineColor
+  - [x] LineWidth
+  - [x] Fill
