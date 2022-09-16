@@ -1,6 +1,8 @@
 package mohr.jonas.quick.tex.util
 
 import mohr.jonas.quick.tex.dsl.elements.DslElement
+import mohr.jonas.quick.tex.dsl.elements.tikz.Position
+import java.awt.geom.Rectangle2D
 import java.time.LocalDate
 import java.time.format.DateTimeFormatterBuilder
 import java.time.temporal.ChronoField
@@ -33,3 +35,7 @@ fun DslElement.getRoot(): DslElement {
     if (parent != null) return parent.getRoot()
     return this
 }
+
+fun Position.add(x: Number, y: Number) = Position(first + x.toFloat(), second + y.toFloat())
+
+fun Rectangle2D.Float.center() = Position(centerX.toFloat(), centerY.toFloat())

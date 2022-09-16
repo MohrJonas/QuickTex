@@ -1,6 +1,7 @@
 package mohr.jonas.quick.tex.dsl
 
 enum class TextFormat {
+
     STRIKETHROUGH, UNDERLINE, BOLD, ITALIC;
 
     companion object {

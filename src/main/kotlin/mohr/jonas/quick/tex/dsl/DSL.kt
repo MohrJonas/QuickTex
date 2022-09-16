@@ -6,11 +6,7 @@ import mohr.jonas.quick.tex.dsl.elements.ParentElement
 import mohr.jonas.quick.tex.dsl.elements.latex.*
 import mohr.jonas.quick.tex.dsl.elements.math.InlineMath
 import mohr.jonas.quick.tex.dsl.elements.math.Math
-import mohr.jonas.quick.tex.dsl.elements.tikz.Colors
-import mohr.jonas.quick.tex.dsl.elements.tikz.LineThickness
-import mohr.jonas.quick.tex.dsl.elements.tikz.Position
 import mohr.jonas.quick.tex.dsl.elements.tikz.Tikz
-import mohr.jonas.quick.tex.dsl.elements.tikz.commands.*
 import mohr.jonas.quick.tex.util.getDateString
 import org.apache.commons.lang3.StringUtils
 
@@ -103,61 +99,6 @@ fun ParentElement.raw(command: String): Raw {
     return raw
 }
 
-fun Tikz.circle(
-    position: Position,
-    radius: Float,
-    fc: Colors? = null,
-    lc: Colors = Colors.BLACK,
-    lt: LineThickness = LineThickness.SEMITHICK
-): CircleCommand {
-    val command = CircleCommand(position, radius, fc, lc, lt, this)
-    addChild(command)
-    return command
-}
-
-fun Tikz.draw(
-    vararg positions: Position,
-    fc: Colors? = null,
-    lc: Colors = Colors.BLACK,
-    lt: LineThickness = LineThickness.SEMITHICK,
-    cycle: Boolean = false
-): DrawCommand {
-    val command = DrawCommand(*positions, fc = fc, lc = lc, lt = lt, cycle = cycle, parent = this)
-    addChild(command)
-    return command
-}
-
-fun Tikz.ellipse(
-    position: Position,
-    radiusX: Float,
-    radiusY: Float,
-    fc: Colors? = null,
-    lc: Colors = Colors.BLACK,
-    lt: LineThickness = LineThickness.SEMITHICK
-): EllipseCommand {
-    val command = EllipseCommand(position, radiusX, radiusY, fc, lc, lt, this)
-    addChild(command)
-    return command
-}
-
-fun Tikz.rect(
-    position1: Position,
-    position2: Position,
-    fc: Colors? = null,
-    lc: Colors = Colors.BLACK,
-    lt: LineThickness = LineThickness.SEMITHICK
-): RectCommand {
-    val command = RectCommand(position1, position2, fc, lc, lt, this)
-    addChild(command)
-    return command
-}
-
-fun Tikz.text(position: Position, text: String): TextCommand {
-    val textCommand = TextCommand(position, text, this)
-    addChild(textCommand)
-    return textCommand
-}
-
 fun Table.empty(): Empty {
     val empty = Empty(this)
     addChild(empty)
@@ -175,3 +116,5 @@ fun ParentElement.inlineMath(firstPart: Any, vararg moreParts: Any): InlineMath 
     addChild(inlineMath)
     return inlineMath
 }
+
+fun j(vararg parts: Any): String = StringUtils.joinWith(" ", *parts)

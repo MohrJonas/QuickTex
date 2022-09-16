@@ -128,8 +128,8 @@ fun underbrace(variable: Any, underbrace: Any): String {
 }
 
 fun vec(vararg parts: Any, direction: VectorDirection = VectorDirection.VERTICAL) = when (direction) {
-    VectorDirection.VERTICAL -> "\\begin{pmatrix}${StringUtils.joinWith("\\\\", parts)}\\end{pmatrix}"
-    VectorDirection.HORIZONTAL -> "\\(${StringUtils.joinWith("; ", parts)}\\)"
+    VectorDirection.VERTICAL -> "\\begin{pmatrix}${StringUtils.joinWith("\\\\", *parts)}\\end{pmatrix}"
+    VectorDirection.HORIZONTAL -> "\\(${StringUtils.joinWith("; ", *parts)}\\)"
 }
 
 fun matrix(nCols: Int, vararg parts: Any): String {

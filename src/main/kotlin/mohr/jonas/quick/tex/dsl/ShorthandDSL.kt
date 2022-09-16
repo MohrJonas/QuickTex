@@ -4,9 +4,6 @@ package mohr.jonas.quick.tex.dsl
 
 import mohr.jonas.quick.tex.dsl.elements.ParentElement
 import mohr.jonas.quick.tex.dsl.elements.latex.*
-import mohr.jonas.quick.tex.dsl.elements.tikz.Colors
-import mohr.jonas.quick.tex.dsl.elements.tikz.LineThickness
-import mohr.jonas.quick.tex.dsl.elements.tikz.Position
 import mohr.jonas.quick.tex.dsl.elements.tikz.Tikz
 import mohr.jonas.quick.tex.util.getDateString
 import org.apache.commons.lang3.StringUtils
@@ -41,46 +38,8 @@ fun Preamble.pkg(pkg: String, vararg args: String) = usePackage(pkg, *args)
 
 fun ParentElement.r(command: String) = raw(command)
 
-fun Tikz.c(
-    position: Position,
-    radius: Float,
-    fc: Colors? = null,
-    lc: Colors = Colors.BLACK,
-    lt: LineThickness = LineThickness.SEMITHICK
-) =
-    circle(position, radius, fc, lc, lt)
-
-fun Tikz.d(
-    vararg positions: Position,
-    fc: Colors? = null,
-    lc: Colors = Colors.BLACK,
-    lt: LineThickness = LineThickness.SEMITHICK,
-    cycle: Boolean = false
-) =
-    draw(*positions, fc = fc, lc = lc, lt = lt, cycle = cycle)
-
-fun Tikz.e(
-    position: Position,
-    radiusX: Float,
-    radiusY: Float,
-    fc: Colors? = null,
-    lc: Colors = Colors.BLACK,
-    lt: LineThickness = LineThickness.SEMITHICK
-) = ellipse(position, radiusX, radiusY, fc, lc, lt)
-
-fun Tikz.r(
-    position1: Position,
-    position2: Position,
-    fc: Colors? = null,
-    lc: Colors = Colors.BLACK,
-    lt: LineThickness = LineThickness.SEMITHICK
-) =
-    rect(position1, position2, fc, lc, lt)
-
-fun Tikz.t(position: Position, text: String) = text(position, text)
-
 fun Table.e() = empty()
 
-fun ParentElement.m(firstPart: Any, vararg moreParts: Any) = math(firstPart, moreParts)
+fun ParentElement.m(firstPart: Any, vararg moreParts: Any) = math(firstPart, *moreParts)
 
-fun ParentElement.im(firstPart: Any, vararg moreParts: Any) = inlineMath(firstPart, moreParts)
+fun ParentElement.im(firstPart: Any, vararg moreParts: Any) = inlineMath(firstPart, *moreParts)

@@ -1,3 +1,5 @@
+@file:Suppress("unused")
+
 package mohr.jonas.quick.tex.dsl.elements.tikz
 
 enum class LineThickness {

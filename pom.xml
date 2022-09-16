@@ -6,7 +6,7 @@
 
     <artifactId>QuickTex</artifactId>
     <groupId>mohr.jonas</groupId>
-    <version>0.5.3</version>
+    <version>0.6.2</version>2
     <packaging>jar</packaging>
 
     <name>QuickTex</name>
