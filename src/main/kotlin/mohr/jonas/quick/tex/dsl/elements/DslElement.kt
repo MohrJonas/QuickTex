@@ -3,11 +3,11 @@ package mohr.jonas.quick.tex.dsl.elements
 /**
  * Root for all DSL-Elements
  * */
-interface DslElement {
+abstract class DslElement(val parent: DslElement?) {
 
     /**
      * Express the element as a Latex-equivalent String
      * */
-    fun toLatexString(): String
+    abstract fun toLatexString(): String
 
 }

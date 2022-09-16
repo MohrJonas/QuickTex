@@ -1,6 +1,7 @@
 package mohr.jonas.quick.tex.dsl.elements.tikz.commands
 
 import mohr.jonas.quick.tex.dsl.elements.ChildElement
+import mohr.jonas.quick.tex.dsl.elements.DslElement
 import mohr.jonas.quick.tex.dsl.elements.tikz.Colors
 import mohr.jonas.quick.tex.dsl.elements.tikz.LineThickness
 import mohr.jonas.quick.tex.dsl.elements.tikz.Position
@@ -14,14 +15,20 @@ class DrawCommand(
     private val fc: Colors?,
     private val lc: Colors,
     private val lt: LineThickness,
-    private val cycle: Boolean
-) : ChildElement {
+    private val cycle: Boolean, parent: DslElement?
+) : ChildElement(parent) {
 
     override fun toLatexString(): String {
         val positions = StringUtils.joinWith(" -- ", *positions.map { it.fmt() }.toTypedArray())
         val lineColor = Colors.asTikzColor(lc)
         val lineThickness = LineThickness.asTikzThickness(lt)
         val fillColor = if (fc != null) Colors.asTikzColor(lc) else null
-        return "\\draw[draw=$lineColor, $lineThickness${ifNull(fillColor, emptyString(), ", fill=$fillColor")}] $positions ${if (cycle) "-- cycle" else emptyString()};"
+        return "\\draw[draw=$lineColor, $lineThickness${
+            ifNull(
+                fillColor,
+                emptyString(),
+                ", fill=$fillColor"
+            )
+        }] $positions ${if (cycle) "-- cycle" else emptyString()};"
     }
 }

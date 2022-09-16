@@ -1,8 +1,6 @@
 package mohr.jonas.quick.tex.util
 
 import mohr.jonas.quick.tex.dsl.elements.DslElement
-import mohr.jonas.quick.tex.dsl.elements.latex.Page
-import mohr.jonas.quick.tex.dsl.elements.latex.Text
 import java.util.*
 
 fun Optional<String>.map(ifPresent: (String) -> String, ifEmpty: () -> String): String {
@@ -10,7 +8,7 @@ fun Optional<String>.map(ifPresent: (String) -> String, ifEmpty: () -> String): 
 }
 
 inline fun <reified T> List<T>.fillTo(size: Int, t: T): List<T> {
-    if(this.size >= size) return this
+    if (this.size >= size) return this
     return this.plus(Array(size - this.size) { t })
 }
 

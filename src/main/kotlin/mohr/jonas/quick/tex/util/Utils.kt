@@ -1,5 +1,6 @@
 package mohr.jonas.quick.tex.util
 
+import mohr.jonas.quick.tex.dsl.elements.DslElement
 import java.time.LocalDate
 import java.time.format.DateTimeFormatterBuilder
 import java.time.temporal.ChronoField
@@ -27,3 +28,8 @@ fun <T, U> ifNull(u: U?, ifNull: T, ifnNull: T): T {
 }
 
 fun Float.singleDec() = this.toString()
+
+fun DslElement.getRoot(): DslElement {
+    if (parent != null) return parent.getRoot()
+    return this
+}

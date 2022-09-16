@@ -2,6 +2,15 @@
 
 package mohr.jonas.quick.tex.dsl.elements.math
 
+import mohr.jonas.quick.tex.util.emptyString
+import mohr.jonas.quick.tex.util.fillTo
+import org.apache.commons.lang3.StringUtils
+
+enum class VectorDirection {
+    HORIZONTAL,
+    VERTICAL
+}
+
 fun lim(variable: Any, to: Any): String {
     return "\\lim_{$variable \\to $to}"
 }
@@ -116,4 +125,22 @@ fun underleftarrow(variable: Any): String {
 
 fun underbrace(variable: Any, underbrace: Any): String {
     return "\\underbrace{$variable}_{$underbrace}"
+}
+
+fun vec(vararg parts: Any, direction: VectorDirection = VectorDirection.VERTICAL) = when (direction) {
+    VectorDirection.VERTICAL -> "\\begin{pmatrix}${StringUtils.joinWith("\\\\", parts)}\\end{pmatrix}"
+    VectorDirection.HORIZONTAL -> "\\(${StringUtils.joinWith("; ", parts)}\\)"
+}
+
+fun matrix(nCols: Int, vararg parts: Any): String {
+    return "\\begin{pmatrix}\n${
+        StringUtils.joinWith(
+            "\n",
+            "${
+                StringUtils.joinWith(
+                    " & ",
+                    parts.toList().chunked(nCols).fillTo(nCols, emptyString()).map { it.toString() })
+            } \\"
+        )
+    }\n\\end{pmatrix}"
 }
