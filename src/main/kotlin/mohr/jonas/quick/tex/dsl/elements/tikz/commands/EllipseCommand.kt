@@ -16,10 +16,10 @@ class EllipseCommand(
     parent: DslElement?
 ) : TikzCommand(parent) {
     override fun getBounds() = Rectangle2D.Float(
-        position.first - radiusX, position.second - radiusY, radiusX, radiusY
+        position.first - radiusX, position.second - radiusY, 2 * radiusX, 2 * radiusY
     )
 
-    override fun toLatexString(): String {
+    override fun toString(): String {
         val position = position.fmt()
         val radiusX = radiusX.singleDec()
         val radiusY = radiusY.singleDec()

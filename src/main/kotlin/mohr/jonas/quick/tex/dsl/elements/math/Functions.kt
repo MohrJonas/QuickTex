@@ -2,13 +2,10 @@
 
 package mohr.jonas.quick.tex.dsl.elements.math
 
-import mohr.jonas.quick.tex.util.emptyString
-import mohr.jonas.quick.tex.util.fillTo
 import org.apache.commons.lang3.StringUtils
 
 enum class VectorDirection {
-    HORIZONTAL,
-    VERTICAL
+    HORIZONTAL, VERTICAL
 }
 
 fun lim(variable: Any, to: Any): String {
@@ -133,14 +130,10 @@ fun vec(vararg parts: Any, direction: VectorDirection = VectorDirection.VERTICAL
 }
 
 fun matrix(nCols: Int, vararg parts: Any): String {
-    return "\\begin{pmatrix}\n${
-        StringUtils.joinWith(
-            "\n",
-            "${
-                StringUtils.joinWith(
-                    " & ",
-                    parts.toList().chunked(nCols).fillTo(nCols, emptyString()).map { it.toString() })
-            } \\"
-        )
-    }\n\\end{pmatrix}"
+    return StringUtils.joinWith(
+        "\n",
+        "\\begin{pmatrix}",
+        "${parts.toList().chunked(nCols).map { StringUtils.joinWith(" & ", *it.toTypedArray()) }.toTypedArray()} \\",
+        "\\end{pmatrix}"
+    )
 }

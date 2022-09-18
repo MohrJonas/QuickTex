@@ -19,7 +19,7 @@ class CircleCommand(
         position.first, position.second, 2 * radius, 2 * radius
     )
 
-    override fun toLatexString(): String {
+    override fun toString(): String {
         val position = position.fmt()
         val radius = radius.singleDec()
         val lineColor = Colors.asTikzColor(lc)

@@ -14,9 +14,9 @@ class TextCommand(
     var position: Position,
     var text: String, parent: DslElement?,
 ) : TikzCommand(parent) {
-    override fun getBounds() = Rectangle2D.Float(position.first - 0.5f, position.second - 0.5f, 0.5f, 0.5f)
+    override fun getBounds() = Rectangle2D.Float(position.first - 0.5f, position.second - 0.5f, 1f, 1f)
 
-    override fun toLatexString(): String {
+    override fun toString(): String {
         val position = position.fmt()
         return "\\node[draw] at $position {$text};"
     }

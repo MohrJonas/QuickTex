@@ -7,5 +7,13 @@ import org.apache.commons.lang3.StringUtils
 class UsePackageCommand(private val pkg: String, private vararg val args: String, parent: DslElement?) :
     ChildElement(parent) {
 
-    override fun toLatexString() = "\\usepackage[${StringUtils.joinWith(", ", *args)}]{$pkg}"
+    override fun toString() = "\\usepackage[${StringUtils.joinWith(", ", *args)}]{$pkg}"
 }
+
+fun Preamble.usePackage(pkg: String, vararg args: String): UsePackageCommand {
+    val command = UsePackageCommand(pkg, *args, parent = this)
+    addChild(command)
+    return command
+}
+
+fun Preamble.pkg(pkg: String, vararg args: String) = usePackage(pkg, *args)

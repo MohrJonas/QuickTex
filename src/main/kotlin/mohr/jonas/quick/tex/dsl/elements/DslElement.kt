@@ -8,6 +8,6 @@ abstract class DslElement(val parent: DslElement?) {
     /**
      * Express the element as a Latex-equivalent String
      * */
-    abstract fun toLatexString(): String
+    abstract override fun toString(): String
 
 }

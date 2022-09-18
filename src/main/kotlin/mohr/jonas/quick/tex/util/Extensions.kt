@@ -12,4 +12,4 @@ inline fun <reified T> List<T>.fillTo(size: Int, t: T): List<T> {
     return this.plus(Array(size - this.size) { t })
 }
 
-fun Iterable<DslElement>.defaultLatexStrings() = this.map { it.toLatexString() }.toTypedArray()
+fun Iterable<DslElement>.defaultLatexStrings() = this.map { it.toString() }.toTypedArray()

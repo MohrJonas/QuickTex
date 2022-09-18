@@ -6,6 +6,14 @@ import org.apache.commons.lang3.StringUtils
 
 class QuickTex : ParentElement(null) {
 
-    override fun toLatexString(): String =
+    override fun toString(): String =
         StringUtils.joinWith("\n", "\\documentclass[12pt]{article}", *getChildren().defaultLatexStrings())
 }
+
+fun quickTex(init: QuickTex.() -> Unit): QuickTex {
+    val tex = QuickTex()
+    tex.init()
+    return tex
+}
+
+fun qt(init: QuickTex.() -> Unit) = quickTex(init)

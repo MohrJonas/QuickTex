@@ -1,7 +1,9 @@
 package mohr.jonas.quick.tex.dsl.elements.tikz.commands
 
 import mohr.jonas.quick.tex.dsl.elements.DslElement
+import mohr.jonas.quick.tex.dsl.elements.ParentElement
 import mohr.jonas.quick.tex.dsl.elements.tikz.*
+import mohr.jonas.quick.tex.util.add
 import mohr.jonas.quick.tex.util.emptyString
 import mohr.jonas.quick.tex.util.ifNull
 import org.apache.commons.lang3.StringUtils
@@ -12,7 +14,8 @@ class DrawCommand(
     var fc: Colors?,
     var lc: Colors,
     var lt: LineThickness,
-    var cycle: Boolean, parent: DslElement?
+    var cycle: Boolean,
+    parent: DslElement?
 ) : TikzCommand(parent) {
     override fun getBounds(): Rectangle2D.Float {
         val minX = positions.minBy { it.first }.first
@@ -22,16 +25,14 @@ class DrawCommand(
         return Rectangle2D.Float(maxX - (maxX - minX), maxY - (maxY - minY), maxX - minX, maxY - minY)
     }
 
-    override fun toLatexString(): String {
+    override fun toString(): String {
         val positions = StringUtils.joinWith(" -- ", *positions.map { it.fmt() }.toTypedArray())
         val lineColor = Colors.asTikzColor(lc)
         val lineThickness = LineThickness.asTikzThickness(lt)
         val fillColor = if (fc != null) Colors.asTikzColor(fc!!) else null
         return "\\draw[draw=$lineColor, $lineThickness${
             ifNull(
-                fillColor,
-                emptyString(),
-                ", fill=$fillColor"
+                fillColor, emptyString(), ", fill=$fillColor"
             )
         }] $positions ${if (cycle) "-- cycle" else emptyString()};"
     }
@@ -50,6 +51,33 @@ fun Tikz.draw(
 }
 
 fun Tikz.d(
+    vararg positions: Position,
+    fc: Colors? = null,
+    lc: Colors = Colors.BLACK,
+    lt: LineThickness = LineThickness.SEMITHICK,
+    cycle: Boolean = false
+) = draw(*positions, fc = fc, lc = lc, lt = lt, cycle = cycle)
+
+fun Translation.draw(
+    vararg positions: Position,
+    fc: Colors? = null,
+    lc: Colors = Colors.BLACK,
+    lt: LineThickness = LineThickness.SEMITHICK,
+    cycle: Boolean = false
+): DrawCommand {
+    val command = DrawCommand(
+        *positions.map { it.add(translationX, translationX) }.toTypedArray(),
+        fc = fc,
+        lc = lc,
+        lt = lt,
+        cycle = cycle,
+        parent = reference.parent
+    )
+    (reference.parent as ParentElement).addChild(command)
+    return command
+}
+
+fun Translation.d(
     vararg positions: Position,
     fc: Colors? = null,
     lc: Colors = Colors.BLACK,

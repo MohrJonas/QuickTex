@@ -22,7 +22,7 @@ class RectCommand(
         position.first - width / 2, position.second - height / 2, width, height
     )
 
-    override fun toLatexString(): String {
+    override fun toString(): String {
         val position1 = Position(position.first - width / 2, position.second - height / 2)
         val position2 = Position(position.first + width / 2, position.second + height / 2)
         val lineColor = Colors.asTikzColor(lc)
