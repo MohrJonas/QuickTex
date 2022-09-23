@@ -133,7 +133,8 @@ fun matrix(nCols: Int, vararg parts: Any): String {
     return StringUtils.joinWith(
         "\n",
         "\\begin{pmatrix}",
-        "${parts.toList().chunked(nCols).map { StringUtils.joinWith(" & ", *it.toTypedArray()) }.toTypedArray()} \\",
+        *parts.toList().chunked(nCols).map { StringUtils.joinWith(" & ", *it.toTypedArray()) }.toTypedArray()
+            .map { "$it \\\\" }.toTypedArray(),
         "\\end{pmatrix}"
     )
 }

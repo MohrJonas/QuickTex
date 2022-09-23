@@ -16,7 +16,7 @@ class CircleCommand(
 ) : TikzCommand(parent) {
 
     override fun getBounds(): Rectangle2D.Float = Rectangle2D.Float(
-        position.first, position.second, 2 * radius, 2 * radius
+        position.first - radius, position.second - radius, 2 * radius, 2 * radius
     )
 
     override fun toString(): String {
