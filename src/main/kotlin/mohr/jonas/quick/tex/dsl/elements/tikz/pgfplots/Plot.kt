@@ -7,8 +7,8 @@ import mohr.jonas.quick.tex.util.defaultLatexStrings
 import org.apache.commons.lang3.StringUtils
 
 class Plot(
-    private val xRange: IntRange,
-    private val yRange: IntRange,
+    val xRange: IntRange,
+    val yRange: IntRange,
     parent: DslElement?
 ) : ParentElement(parent) {
 
